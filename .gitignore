@@ -22,6 +22,7 @@ node_modules
 
 tsc-out
 dist
+tmp
 dist-dev
 external
 lib
