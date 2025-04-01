@@ -1,0 +1,2 @@
+npm run build //build for production
+pm2 restart qwik-server //restart server
