@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+:root {
+    --title-color: rgb(150, 200, 250);
+}
+
+body {
+    font-family: 'Courier New', Courier, monospace;
+}

@@ -1,2 +1,1 @@
-# bugrakat-web
-bugrakat.xyz
+asdff
