@@ -40,5 +40,7 @@ test-results
 
 .netlify
 sandbox
+.env
 
+CHANGELOG.md
 /CHANGELOG.md
