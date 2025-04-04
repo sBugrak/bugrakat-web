@@ -1,21 +1,36 @@
 import { component$, useVisibleTask$ } from "@builder.io/qwik";
-import { Link } from '@builder.io/qwik-city';
+import { Link, useLocation } from '@builder.io/qwik-city';
 
 export const Navbar = component$(() => {
 
+    const loc = useLocation();
+
     useVisibleTask$(() => {
-        const handleClickOutside = (event: MouseEvent) => {
-            const nav = document.querySelector('nav');
+        const handleLinkClick = () => {
             const menuToggle = document.getElementById('menu-toggle') as HTMLInputElement;
-            if (nav && !nav.contains(event.target as Node) && menuToggle.checked) {
+            if (menuToggle) {
                 menuToggle.checked = false;
             }
         };
 
-        document.addEventListener('click', handleClickOutside);
+        // Add event listeners to all links inside the navbar
+        const links = document.querySelectorAll('.link-list a');
+        links.forEach((link) => {
+            link.addEventListener('click', handleLinkClick);
+        });
+
+        // Add event listener to the title element
+        const title = document.querySelector('.title a');
+        if (title) {
+            title.addEventListener('click', handleLinkClick);
+        }
+
 
         return () => {
-            document.removeEventListener('click', handleClickOutside);
+            // Cleanup event listeners
+            links.forEach((link) => {
+                link.removeEventListener('click', handleLinkClick);
+            });
         };
     });
 
@@ -31,11 +46,11 @@ export const Navbar = component$(() => {
                     </g>
                 </svg>
             </label>
-            <h1 class="title"><a href="index.php"><span class="mr-1">ツ</span>Bugrakat</a></h1>
+            <h1 class="title"><Link href="/"><span class="mr-1">ツ</span>Bugrakat</Link></h1>
             <ul class="link-list text-white">
-                <li><Link href="" class="nav-link">Blog</Link></li>
-                <li><Link href="" class="nav-link">Register</Link></li>
-                <li><Link href="" class="nav-link">Enter</Link></li>
+                <li><Link href="/about" class={{ 'nav-link': true, 'active': loc.url.pathname === '/about/' }}>About</Link></li>
+                <li><Link href="/register" class={{ 'nav-link': true, 'active': loc.url.pathname === '/register/' }}>Register</Link></li>
+                <li><Link href="/enter" class={{ 'nav-link': true, 'active': loc.url.pathname === '/enter/' }}>Enter</Link></li>
             </ul>
         </nav>
     );

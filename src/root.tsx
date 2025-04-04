@@ -1,4 +1,4 @@
-import { component$ } from "@builder.io/qwik";
+import { component$, useStyles$ } from "@builder.io/qwik";
 import { isDev } from "@builder.io/qwik";
 import {
   QwikCityProvider,
@@ -16,7 +16,6 @@ export default component$(() => {
    *
    * Don't remove the `<head>` and `<body>` elements.
    */
-
   return (
     <QwikCityProvider>
       <head>
@@ -30,7 +29,7 @@ export default component$(() => {
         <RouterHead />
         {!isDev && <ServiceWorkerRegister />}
       </head>
-      <body lang="en" class="bg-lime-900 animate-fade-in">
+      <body lang="en" class="background animate-fade-in">
         <RouterOutlet />
       </body>
     </QwikCityProvider>

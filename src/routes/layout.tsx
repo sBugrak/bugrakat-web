@@ -1,15 +1,13 @@
 import { component$, Slot, useStyles$ } from "@builder.io/qwik";
 import { routeLoader$ } from "@builder.io/qwik-city";
 import type { RequestHandler } from "@builder.io/qwik-city";
-
+import { Navbar } from "~/components/Navbar";
+import { Footer } from "~/components/Footer";
+import navbarStyles from '~/styles/navbar.css?inline';
 
 export const onGet: RequestHandler = async ({ cacheControl }) => {
-  // Control caching for this request for best performance and to reduce hosting costs:
-  // https://qwik.dev/docs/caching/
   cacheControl({
-    // Always serve a cached response by default, up to a week stale
     staleWhileRevalidate: 60 * 60 * 24 * 7,
-    // Max once every 5 seconds, revalidate on the server to get a fresh version of this page
     maxAge: 5,
   });
 };
@@ -21,11 +19,20 @@ export const useServerTimeLoader = routeLoader$(() => {
 });
 
 export default component$(() => {
+  useStyles$(navbarStyles);
+
   return (
-    <>
-      <main>
+    <div class="flex flex-col min-h-screen">
+      {/* Navbar */}
+      <Navbar />
+
+      {/* Main Content */}
+      <main class="flex-grow">
         <Slot />
       </main>
-    </>
+
+      {/* Footer */}
+      <Footer />
+    </div>
   );
 });
